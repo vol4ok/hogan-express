@@ -1,0 +1,26 @@
+{
+  "name": "hogan-express",
+  "version": "0.1.0",
+  "description": "Mustache template engine for express 3.x. Support partials and layout",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:vol4ok/hogan-express.git"
+  },
+  "keywords": [
+    "mustache",
+    "hogan",
+    "partials",
+    "layout",
+    "template",
+    "engine"
+  ],
+  "author": "vol4ok",
+  "license": "MIT",
+  "dependencies": {
+    "hogan.js": ">=2.0.0"
+  }
+}
