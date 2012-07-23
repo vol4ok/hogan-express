@@ -1,6 +1,7 @@
 # HOGAN-EXPRESS
 
-Mustache template engine for express 3.x.
+Mustache template engine for express 3.x. 
+Use twitter's [hogan.js](https://github.com/twitter/hogan.js) engine.
 
 Supports
   - partials 
