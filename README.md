@@ -16,8 +16,8 @@ Supports
 Setup:
 ```
 app.set('view engine', 'html')
-app.set('layout', 'layout')
-app.set('partials', head: "head")
+app.set('layout', 'layout') # rendering by default
+app.set('partials', head: "head") # partails using by default on all pages
 app.enable('view cache')
 app.engine 'html', require('hogan-express')
 ```
@@ -26,9 +26,9 @@ Rendering template:
 ```
 app.get '/', (req,res)->
   res.locals = what: 'World'
-  res.render "index", partials: {temp: 'foo'}
+  res.render "index", partials: {temp: 'temp'}
 ```
-(will render layout.html with index.html, head.html and foo.html partials)
+(will render `layout.html` with `index.html`, `head.html` and `temp.html` partials)
 
 ### License
 MIT License
