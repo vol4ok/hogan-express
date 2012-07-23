@@ -1,4 +1,7 @@
-#require "colors"
+###!
+ * Copyright (c) 2012 Andrew Volkov <hello@vol4ok.net>
+###
+
 $ = {}
 $ extends require 'fs'
 $ extends require 'util'
@@ -16,8 +19,7 @@ read = (path, options, fn) ->
     cache[path] = str if (options.cache)
     fn(null, str)
 
-render_partials = (partials, opt, fn) ->
-  #console.log partials
+renderPartials = (partials, opt, fn) ->
   count = 1
   result = {}
   for name, path of partials
@@ -25,20 +27,18 @@ render_partials = (partials, opt, fn) ->
     path += ctx.ext unless $.extname(path) 
     path = ctx.lookup(path)
     count++
-    #console.log "count++: ".yellow, count, name, path
     read path, opt, ((name, path) ->
         return (err, str) ->
           return unless count
           if err
             count = 0
             fn(err)
-          #console.log "count--: ".green, count, name, path
           result[name] = str
           fn(null, result) unless --count
       )(name, path)
   fn(null, result) if --count
 
-render_layout = (path, opt, fn) ->
+renderLayout = (path, opt, fn) ->
   return fn(null, false) unless path
   path += ctx.ext unless $.extname(path) 
   path = ctx.lookup(path)
@@ -49,24 +49,21 @@ render_layout = (path, opt, fn) ->
 
 render = (path, opt, fn) ->
   ctx = this
-  #console.log $.inspect(opt, no, 0, yes)
   partials = opt.settings.partials or {}
   partials = partials extends opt.partials if opt.partials
-  render_partials partials, opt, (err, partials) ->
-    #console.log 'partials '.cyan, partials
+  renderPartials partials, opt, (err, partials) ->
     return fn(err) if (err)
-    render_layout opt.layout or opt.settings.layout, opt, (err, layout) ->
-      #console.log 'layout '.cyan, layout
+    renderLayout opt.layout or opt.settings.layout, opt, (err, layout) ->
       read path, opt, (err, str) ->
-        #console.log 'body '.cyan, str
         return fn(err) if (err)
         try
-          tmpl = if layout
-            partials.yield = str
-            hogan.compile(layout, opt)
-          else
-            hogan.compile(str, opt)
-          fn(null, tmpl.render(opt.locals, partials))
+          tmpl = hogan.compile(str, opt)
+          result = tmpl.render(opt.locals, partials)
+          if layout
+            opt.locals.yield = result
+            tmpl = hogan.compile(layout, opt)
+            result = tmpl.render(opt.locals, partials)
+          fn(null, result)            
         catch err
           fn(err)
 
