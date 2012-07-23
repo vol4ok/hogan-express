@@ -1,8 +1,8 @@
 {
   "name": "hogan-express",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Mustache template engine for express 3.x. Support partials and layout",
-  "main": "index.js",
+  "main": "hogan-express.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,5 +22,9 @@
   "license": "MIT",
   "dependencies": {
     "hogan.js": ">=2.0.0"
+  },
+  "devDependencies": {
+    "coffee-script": "1.x.x",
+    "colors": "0.6.x"
   }
 }
