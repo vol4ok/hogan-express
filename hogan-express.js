@@ -68,7 +68,7 @@ renderPartials = function(partials, opt, fn) {
       };
     })(name, path));
   }
-  if (--count) {
+  if (!--count) {
     return fn(null, result);
   }
 };
@@ -105,17 +105,19 @@ render = function(path, opt, fn) {
     }
     return renderLayout(opt.layout || opt.settings.layout, opt, function(err, layout) {
       return read(path, opt, function(err, str) {
-        var result, tmpl;
+        var locals, result, tmpl;
         if (err) {
           return fn(err);
         }
         try {
+          locals = {};
+          locals = __extends(locals, opt.locals);
           tmpl = hogan.compile(str, opt);
-          result = tmpl.render(opt.locals, partials);
+          result = tmpl.render(locals, partials);
           if (layout) {
-            opt.locals["yield"] = result;
+            locals["yield"] = result;
             tmpl = hogan.compile(layout, opt);
-            result = tmpl.render(opt.locals, partials);
+            result = tmpl.render(locals, partials);
           }
           return fn(null, result);
         } catch (err) {

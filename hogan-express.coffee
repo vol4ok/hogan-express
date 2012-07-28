@@ -36,7 +36,7 @@ renderPartials = (partials, opt, fn) ->
           result[name] = str
           fn(null, result) unless --count
       )(name, path)
-  fn(null, result) if --count
+  fn(null, result) unless --count
 
 renderLayout = (path, opt, fn) ->
   return fn(null, false) unless path
@@ -57,12 +57,14 @@ render = (path, opt, fn) ->
       read path, opt, (err, str) ->
         return fn(err) if (err)
         try
+          locals = {}
+          locals = locals extends opt.locals
           tmpl = hogan.compile(str, opt)
-          result = tmpl.render(opt.locals, partials)
+          result = tmpl.render(locals, partials)
           if layout
-            opt.locals.yield = result
+            locals.yield = result
             tmpl = hogan.compile(layout, opt)
-            result = tmpl.render(opt.locals, partials)
+            result = tmpl.render(locals, partials)
           fn(null, result)            
         catch err
           fn(err)
