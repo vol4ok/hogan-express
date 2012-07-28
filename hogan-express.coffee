@@ -48,19 +48,15 @@ renderLayout = (path, opt, fn) ->
     fn(null, str)
 
 render = (path, opt, fn) ->
-  console.log path.red
   ctx = this
   partials = opt.settings.partials or {}
   partials = partials extends opt.partials if opt.partials
   renderPartials partials, opt, (err, partials) ->
     return fn(err) if (err)
-    console.log 'opt.settings.layout'.green, opt.settings.layout
-    console.log 'opt.layout'.green, opt.layout
     layout = if opt.layout is undefined
       opt.settings.layout
     else
       layout = opt.layout
-    console.log 'layout'.magenta, layout
     renderLayout layout, opt, (err, layout) ->
       read path, opt, (err, str) ->
         return fn(err) if (err)
