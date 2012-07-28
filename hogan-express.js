@@ -94,16 +94,22 @@ renderLayout = function(path, opt, fn) {
 
 render = function(path, opt, fn) {
   var partials;
+  console.log(path.red);
   ctx = this;
   partials = opt.settings.partials || {};
   if (opt.partials) {
     partials = __extends(partials, opt.partials);
   }
   return renderPartials(partials, opt, function(err, partials) {
+    var layout;
     if (err) {
       return fn(err);
     }
-    return renderLayout(opt.layout || opt.settings.layout, opt, function(err, layout) {
+    console.log('opt.settings.layout'.green, opt.settings.layout);
+    console.log('opt.layout'.green, opt.layout);
+    layout = opt.layout === void 0 ? opt.settings.layout : layout = opt.layout;
+    console.log('layout'.magenta, layout);
+    return renderLayout(layout, opt, function(err, layout) {
       return read(path, opt, function(err, str) {
         var locals, result, tmpl;
         if (err) {
