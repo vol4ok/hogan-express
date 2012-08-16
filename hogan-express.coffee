@@ -61,8 +61,8 @@ render = (path, opt, fn) ->
       read path, opt, (err, str) ->
         return fn(err) if (err)
         try
-          locals = {}
-          locals = locals extends opt.locals
+          locals = opt.settings.locals or {}
+          locals = locals extends opt.locals if opt.locals
           tmpl = hogan.compile(str, opt)
           result = tmpl.render(locals, partials)
           if layout
