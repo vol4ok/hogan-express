@@ -32,5 +32,7 @@ app.get '/', (req,res)->
 ```
 (will render `layout.html` with `index.html`, `head.html` and `temp.html` partials)
 
+`{{{ yield }}}` variable in template means the place where your page are rendered inside the layout.
+
 ### License
 MIT License
