@@ -94,7 +94,6 @@ renderLayout = function(path, opt, fn) {
 
 render = function(path, opt, fn) {
   var partials;
-  console.log(opt);
   ctx = this;
   partials = opt.settings.partials || {};
   if (opt.partials) {
@@ -113,7 +112,6 @@ render = function(path, opt, fn) {
           return fn(err);
         }
         try {
-          console.log(opt.locals);
           locals = opt.settings.locals || {};
           locals = __extends(locals, opt._locals);
           tmpl = hogan.compile(str, opt);
