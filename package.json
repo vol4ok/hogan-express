@@ -1,6 +1,6 @@
 {
   "name": "hogan-express",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Mustache template engine for express 3.x. Support partials and layout",
   "main": "hogan-express.js",
   "scripts": {

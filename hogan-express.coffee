@@ -48,6 +48,7 @@ renderLayout = (path, opt, fn) ->
     fn(null, str)
 
 render = (path, opt, fn) ->
+  console.log opt
   ctx = this
   partials = opt.settings.partials or {}
   partials = partials extends opt.partials if opt.partials
@@ -61,8 +62,9 @@ render = (path, opt, fn) ->
       read path, opt, (err, str) ->
         return fn(err) if (err)
         try
+          console.log opt.locals
           locals = opt.settings.locals or {}
-          locals = locals extends opt.locals if opt.locals
+          locals = locals extends opt._locals
           tmpl = hogan.compile(str, opt)
           result = tmpl.render(locals, partials)
           if layout
