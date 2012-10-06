@@ -107,19 +107,17 @@ render = function(path, opt, fn) {
     layout = opt.layout === void 0 ? opt.settings.layout : layout = opt.layout;
     return renderLayout(layout, opt, function(err, layout) {
       return read(path, opt, function(err, str) {
-        var locals, result, tmpl;
+        var result, tmpl;
         if (err) {
           return fn(err);
         }
         try {
-          locals = opt.settings.locals || {};
-          locals = __extends(locals, opt._locals);
           tmpl = hogan.compile(str, opt);
-          result = tmpl.render(locals, partials);
+          result = tmpl.render(opt, partials);
           if (layout) {
-            locals["yield"] = result;
+            opt["yield"] = result;
             tmpl = hogan.compile(layout, opt);
-            result = tmpl.render(locals, partials);
+            result = tmpl.render(opt, partials);
           }
           return fn(null, result);
         } catch (err) {
