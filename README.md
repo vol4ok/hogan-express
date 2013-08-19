@@ -34,6 +34,33 @@ app.get '/', (req,res)->
 
 `{{{ yield }}}` variable in template means the place where your page are rendered inside the layout.
 
+Using custom tags:
+
+layout:
+
+```
+<head>
+	...
+	{{{yield-styles}}}
+	{{{yield-scripts}}}
+</head>
+```
+index:
+
+```
+{{#yield-styles}
+	<style>
+		...
+	</style>
+{{/yield-styles}
+
+{{#yield-scripts}}
+	<script>
+		...
+	</script>
+{{/yield-scripts}}
+```
+
 For render page with custom layout, just specify it in options `res.render "admin.html", layout: "admin-layout"`
 
 ### License
