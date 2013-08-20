@@ -15,7 +15,7 @@ Supports
 
 ### Usage
 
-Setup:
+**Setup**:
 ```
 app.set('view engine', 'html')
 app.set('layout', 'layout') # rendering by default
@@ -23,8 +23,8 @@ app.set('partials', head: "head") # partails using by default on all pages
 app.enable('view cache')
 app.engine 'html', require('hogan-express')
 ```
-
-Rendering template:
+----
+**Rendering template**:
 ```
 app.get '/', (req,res)->
   res.locals = what: 'World'
@@ -33,6 +33,44 @@ app.get '/', (req,res)->
 (will render `layout.html` with `index.html`, `head.html` and `temp.html` partials)
 
 `{{{ yield }}}` variable in template means the place where your page are rendered inside the layout.
+
+----
+**Custom yield tags**:
+
+You can define more extension points in `layout.html` using custom tags ``{{yield-<name>}}``:
+
+layout:
+
+```
+<head>
+	...
+	{{{yield-styles}}}
+	{{{yield-scripts}}}
+</head>
+```
+index:
+
+```
+{{#yield-styles}}
+	<style>
+		...
+	</style>
+{{/yield-styles}}
+
+{{#yield-scripts}}
+	<script>
+		...
+	</script>
+{{/yield-scripts}}
+```
+
+Page `idnex.html` will be rendered into ``{{yield}}`` without content of ``{{#yield-styles}}...{{/yield-styles}``
+and ``{{#yield-scripts}}...{{/yield-scripts}}``. That content goes into accordingly named tags in `layout.html`.
+If ``{{{yield-styles}}}`` is missing, styles tag content will not be rendered.
+
+----
+**Custom layout**:
+
 
 For render page with custom layout, just specify it in options `res.render "admin.html", layout: "admin-layout"`
 
