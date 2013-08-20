@@ -1,3 +1,16 @@
 Hello {{what}}!
 
+<dl>
+  {{#list}}
+     <dt>{{title}}:</dt>
+     <dd>{{data}}</dd>
+  {{/list}}
+</dl>
+
+<p>-----[ > temp ]-----</p>
+
 {{> temp}}
+
+{{#yield-footer}}
+  <p>I'm a footer, defined in index.html</p>
+{{/yield-footer}}

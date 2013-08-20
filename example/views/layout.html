@@ -5,10 +5,18 @@
   <title>Test</title>
 </head>
 <body>
+
+    <p>-----[ > head ]-----</p>
     
     {{> head}}
-    <p>------------</p>
+
+    <p>-----[ { yield } ]-----</p>
+
     {{{ yield }}}
+
+    <p>-----[ { yiels-footer } ]-----</p>
+
+    {{{yiels-footer}}}
   
 </body>
 </html>
