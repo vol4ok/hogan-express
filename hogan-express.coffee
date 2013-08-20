@@ -73,9 +73,10 @@ render = (path, opt, fn) ->
           customTags = str.match(/({{#yield-\w+}})/g)
 
           if layout
-            for customTag in customTags
-              tag = customTag.match(/{{#([\w-]+)}}/)[1]
-              opt[tag] = customContent(str, tag, opt) if tag
+            if customTags.length
+              for customTag in customTags
+                tag = customTag.match(/{{#([\w-]+)}}/)[1]
+                opt[tag] = customContent(str, tag, opt) if tag
             opt.yield = result
             tmpl = hogan.compile(layout, opt)
             result = tmpl.render(opt, partials)
