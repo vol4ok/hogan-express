@@ -16,7 +16,12 @@ app.use(app.router)
 
 app.get '/', (req,res)->
   res.locals = what: 'World'
-  res.render "index", partials: {temp: 'temp'}
+
+  res.locals.data = "default data";
+
+  res.render "index", 
+    list: [ {title: "first", data: "custom data"}, {title: "Second"}, {title: "third"} ]
+    partials: {temp: 'temp'}
 
 
 app.listen(3000)
