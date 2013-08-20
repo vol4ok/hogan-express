@@ -73,7 +73,7 @@ render = (path, opt, fn) ->
           customTags = str.match(/({{#yield-\w+}})/g)
 
           if layout
-            if customTags.length
+            if customTags
               for customTag in customTags
                 tag = customTag.match(/{{#([\w-]+)}}/)[1]
                 opt[tag] = customContent(str, tag, opt) if tag
