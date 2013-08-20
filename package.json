@@ -18,7 +18,7 @@
     "template",
     "engine"
   ],
-  "author": "vol4ok",
+  "author": "Andrew Volkov <hello@vol4ok.net>",
   "license": "MIT",
   "dependencies": {
     "hogan.js": ">=2.0.0"
