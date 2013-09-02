@@ -16,6 +16,8 @@ read = (path, options, fn) ->
   return fn(null, str) if (options.cache and str)
   $.readFile path, 'utf8', (err, str) ->
     return fn(err) if (err)
+    # Remove potential UTF Byte Order Mark
+    str = str.replace(/^\uFEFF/, '')
     cache[path] = str if (options.cache)
     fn(null, str)
 

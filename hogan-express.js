@@ -31,6 +31,7 @@ read = function(path, options, fn) {
     if (err) {
       return fn(err);
     }
+    str = str.replace(/^\uFEFF/, '');
     if (options.cache) {
       cache[path] = str;
     }
