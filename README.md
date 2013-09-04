@@ -19,7 +19,7 @@ Supports
 ```
 app.set('view engine', 'html')
 app.set('layout', 'layout') # rendering by default
-app.set('partials', head: "head") # partails using by default on all pages
+app.set('partials', head: "head") # partials using by default on all pages
 app.enable('view cache')
 app.engine 'html', require('hogan-express')
 ```
@@ -64,7 +64,7 @@ index:
 {{/yield-scripts}}
 ```
 
-Page `idnex.html` will be rendered into ``{{yield}}`` without content of ``{{#yield-styles}}...{{/yield-styles}``
+Page `index.html` will be rendered into ``{{yield}}`` without content of ``{{#yield-styles}}...{{/yield-styles}``
 and ``{{#yield-scripts}}...{{/yield-scripts}}``. That content goes into accordingly named tags in `layout.html`.
 If ``{{{yield-styles}}}`` is missing, styles tag content will not be rendered.
 
