@@ -10,15 +10,15 @@ Hello {{what}}!
 
 <h4>Test Lambdas (should reverse &quot;{{what}}&quot;)</h4>
 <div rel="test-reverse-lambda">
-  {{#reverseString}}{{what}}{{/reverseString}}
+  {{#lambdas.reverseString}}{{what}}{{/lambdas.reverseString}}
 </div>
 
 <h4>Test Lambdas within array context</h4>
 <table rel="test-reverse-lambda-with-context">
   {{#list}}
   <tr>
-    <th>{{#reverseString}}{{title}}{{/reverseString}}</th>
-    <td>{{#reverseString}}{{data}}{{/reverseString}}</td>
+    <th>{{#lambdas.reverseString}}{{title}}{{/lambdas.reverseString}}</th>
+    <td>{{#lambdas.reverseString}}{{data}}{{/lambdas.reverseString}}</td>
   </tr>
   {{/list}}
 </table>

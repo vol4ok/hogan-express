@@ -59,6 +59,30 @@ render = (path, opt, fn) ->
   ctx = this
   partials = opt.settings.partials or {}
   partials = partials extends opt.partials if opt.partials
+
+  lambdas = opt.settings.lambdas or {}
+  lambdas = lambdas extends opt.lambdas if opt.lambdas
+  # get rid of junk from "extends" - make it a normal object again
+  delete lambdas['prototype']
+  delete lambdas['__super__']
+
+  # create the lambdafied functions
+  # this way of dealing with lambdas assumes you'll want
+  # to call your function on the rendered content instead
+  # of the original template string
+  opt.lambdas = {}
+  for l in Object.keys(lambdas)
+    opt.lambdas[l] = ->
+      lcontext = @
+      return (text) ->
+        # getting the context right here is important
+        # it must account for "locals" and values in the current context
+        #  ... particually interesting when applying within a list
+        lctx= {}
+        lctx = lctx extends opt._locals if opt._locals
+        lctx = lctx extends lcontext
+        return lambdas[l](hogan.compile(text).render(lctx))
+
   renderPartials partials, opt, (err, partials) ->
     return fn(err) if (err)
     layout = if opt.layout is undefined
