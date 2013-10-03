@@ -8,6 +8,7 @@ Supports
   - Partials (Allows you to modularize, to move pieces of templates to their own file - think of these as "included" templates)
   - Layouts (Allows you to consolidate common elements of your templates - think of these as "parent" templates)
   - Caching (Makes your app more efficient by reducing unnecessary rendering)
+  - Lambdas (Allows you to create custom filters/lambdas)
 
 ### Install
 
@@ -109,6 +110,48 @@ The page `index.html` will be rendered into ``{{yield}}`` without the content in
 #### Custom layouts
 
 To render a page with custom layout, just specify it in the options: `res.render "admin.html", layout: "admin-layout"`
+
+#### Custom Lambdas / Filters
+
+To create custom filters (or lambdas) you can just specify your filter functions in the options:
+
+```coffeescript
+app.get '/', (req,res)->
+
+  res.locals = myDefaultLabel: "oops" # here to show a little of how scoping works
+
+  res.render 'template',
+    message: 'This is a message. HERE.'
+    mylist: [{label: "one", num: 1},{label: "two", num: 2},{num: 3}]
+
+    lambdas:
+     lowercase: (text) ->
+       return text.toLowerCase()
+     reverseString: (text) ->
+       return text.split("").reverse().join("")
+```
+
+template:
+
+```html
+<p>Lowercase <strong>{{message}}</strong>: {{#lambdas.lowercase}}{{message}}{{/lambdas.lowercase}}</p>
+<ul>
+  {{#mylist}}
+  <li>{{num}}: {{label}} is {{#reverseString}}{{label}}{{#reverseString}} in reverse.</li>
+  {{/mylist}}
+</ul>
+```
+
+rendered html:
+
+```html
+<p>Lowercase <strong>This is a message. HERE.</strong>: this is a message. here.</p>
+<ul>
+  <li>1: one is eno in reverse.</li>
+  <li>2: two is owt in reverse.</li>
+  <li>3: oops is spoo in reverse.</li>
+</ul>
+```
 
 ### License
 hogan-express is released under an [MIT License][5].
