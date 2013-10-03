@@ -25,6 +25,11 @@
   },
   "devDependencies": {
     "coffee-script": "1.x.x",
-    "colors": "0.6.x"
+    "colors": "0.6.x",
+    "supertest": "~0.8.0",
+    "cheerio": "~0.12.2",
+    "expect.js": "~0.2.0",
+    "underscore": "~1.5.2",
+    "express": "~3.4.0"
   }
 }
