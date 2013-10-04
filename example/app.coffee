@@ -1,6 +1,6 @@
 express = require 'express'
 
-app = express()
+app = module.exports = express()
 
 app.set('view engine', 'html')
 app.set('layout', 'layout')
@@ -17,11 +17,13 @@ app.use(app.router)
 app.get '/', (req,res)->
   res.locals = what: 'World'
 
-  res.locals.data = "default data";
+  res.locals.data = "default data"
 
-  res.render "index", 
+  res.render "index",
     list: [ {title: "first", data: "custom data"}, {title: "Second"}, {title: "third"} ]
     partials: {temp: 'temp'}
+    lambdas:
+      reverseString: (text) ->
+        return text.split("").reverse().join("")
 
-
-app.listen(3000)
+app.listen(4020)
