@@ -104,7 +104,7 @@
   };
 
   render = function(path, opt, fn) {
-    var l, lambdas, partials, _i, _len, _ref;
+    var lambda, lambdas, name, partials, _fn;
     ctx = this;
     partials = opt.settings.partials || {};
     if (opt.partials) {
@@ -117,10 +117,8 @@
     delete lambdas['prototype'];
     delete lambdas['__super__'];
     opt.lambdas = {};
-    _ref = Object.keys(lambdas);
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      l = _ref[_i];
-      opt.lambdas[l] = function() {
+    _fn = function(name, lambda) {
+      return opt.lambdas[name] = function() {
         var lcontext;
         lcontext = this;
         return function(text) {
@@ -130,9 +128,13 @@
             lctx = __extends(lctx, opt._locals);
           }
           lctx = __extends(lctx, lcontext);
-          return lambdas[l](hogan.compile(text).render(lctx));
+          return lambda(hogan.compile(text).render(lctx));
         };
       };
+    };
+    for (name in lambdas) {
+      lambda = lambdas[name];
+      _fn(name, lambda);
     }
     return renderPartials(partials, opt, function(err, partials) {
       var layout;
@@ -142,7 +144,7 @@
       layout = opt.layout === void 0 ? opt.settings.layout : layout = opt.layout;
       return renderLayout(layout, opt, function(err, layout) {
         return read(path, opt, function(err, str) {
-          var customTag, customTags, result, tag, tmpl, _j, _len1;
+          var customTag, customTags, result, tag, tmpl, _i, _len;
           if (err) {
             return fn(err);
           }
@@ -152,8 +154,8 @@
             customTags = str.match(/({{#yield-\w+}})/g);
             if (layout) {
               if (customTags) {
-                for (_j = 0, _len1 = customTags.length; _j < _len1; _j++) {
-                  customTag = customTags[_j];
+                for (_i = 0, _len = customTags.length; _i < _len; _i++) {
+                  customTag = customTags[_i];
                   tag = customTag.match(/{{#([\w-]+)}}/)[1];
                   if (tag) {
                     opt[tag] = customContent(str, tag, opt);
