@@ -153,6 +153,12 @@ rendered html:
 </ul>
 ```
 
+### Contributors
+
+[Contributors list](https://github.com/vol4ok/hogan-express/graphs/contributors)
+
+Thank you for your participation!
+
 ### License
 hogan-express is released under an [MIT License][5].
 
