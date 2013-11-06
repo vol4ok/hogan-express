@@ -23,6 +23,16 @@ Hello {{what}}!
   {{/list}}
 </table>
 
+<h5>This second lambda is here to test that you can have more than one type of lambda</h5>
+<div rel="test-uppercase-lambda">
+  {{#lambdas.uppercase}}world{{/lambdas.uppercase}}
+</div>
+
+<h5>You can even nest your lambdas!</h5>
+<div rel="test-nested-lambdas">
+  {{#lambdas.reverseString}}{{#lambdas.uppercase}}{{what}}{{/lambdas.uppercase}}{{/lambdas.reverseString}}
+</div>
+
 <p>-----[ > temp ]-----</p>
 
 {{> temp}}

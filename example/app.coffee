@@ -25,5 +25,7 @@ app.get '/', (req,res)->
     lambdas:
       reverseString: (text) ->
         return text.split("").reverse().join("")
+      uppercase: (text) ->
+        return text.toUpperCase()
 
 app.listen(4020)

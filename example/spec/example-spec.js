@@ -36,4 +36,13 @@ describe("example-page", function() {
     expect(cheer("[rel='test-reverse-lambda-with-context'] tr:nth-child(1) td").text().trim()).to.be("atad motsuc")
     expect(cheer("[rel='test-reverse-lambda-with-context'] tr:nth-child(2) td").text().trim()).to.be("atad tluafed")
   });
+
+  it("should be able to have more than one lambda defined", function() {
+    expect(cheer("[rel='test-uppercase-lambda']").text().trim()).to.be("WORLD")
+  });
+
+  it("should be able to have nested lambdas", function() {
+    expect(cheer("[rel='test-nested-lambdas']").text().trim()).to.be("DLROW")
+  });
+
 });
