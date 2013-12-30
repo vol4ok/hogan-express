@@ -49,11 +49,11 @@ renderLayout = (path, opt, fn) ->
     return fn(err) if (err)
     fn(null, str)
 
-customContent = (str, tag, opt) ->
+customContent = (str, tag, opt, partials) ->
   oTag = "{{##{tag}}}"
   cTag = "{{/#{tag}}}"
   text = str.substring(str.indexOf(oTag) + oTag.length, str.indexOf(cTag))
-  hogan.compile(text, opt).render(opt)
+  hogan.compile(text, opt).render(opt, partials)
 
 render = (path, opt, fn) ->
   ctx = this
@@ -103,7 +103,7 @@ render = (path, opt, fn) ->
             if customTags
               for customTag in customTags
                 tag = customTag.match(/{{#([\w-]+)}}/)[1]
-                opt[tag] = customContent(str, tag, opt) if tag
+                opt[tag] = customContent(str, tag, opt, partials) if tag
             opt.yield = result
             tmpl = hogan.compile(layout, opt)
             result = tmpl.render(opt, partials)
