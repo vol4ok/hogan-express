@@ -95,12 +95,12 @@
     });
   };
 
-  customContent = function(str, tag, opt) {
+  customContent = function(str, tag, opt, partials) {
     var cTag, oTag, text;
     oTag = "{{#" + tag + "}}";
     cTag = "{{/" + tag + "}}";
     text = str.substring(str.indexOf(oTag) + oTag.length, str.indexOf(cTag));
-    return hogan.compile(text, opt).render(opt);
+    return hogan.compile(text, opt).render(opt, partials);
   };
 
   render = function(path, opt, fn) {
@@ -158,7 +158,7 @@
                   customTag = customTags[_i];
                   tag = customTag.match(/{{#([\w-]+)}}/)[1];
                   if (tag) {
-                    opt[tag] = customContent(str, tag, opt);
+                    opt[tag] = customContent(str, tag, opt, partials);
                   }
                 }
               }
