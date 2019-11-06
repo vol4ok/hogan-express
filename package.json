@@ -29,6 +29,6 @@
     "supertest": "~0.8.0",
     "cheerio": "~0.12.2",
     "expect.js": "~0.2.0",
-    "express": "~3.4.0"
+    "express": "~4.17.1"
   }
 }
